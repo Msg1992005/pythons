@@ -10,6 +10,9 @@ RUN adduser --disabled-password --gecos "" jovyan
 # Set the working directory
 WORKDIR /home/jovyan
 
+# Create the .jupyter directory as root (before switching users)
+RUN mkdir /home/jovyan/.jupyter
+
 # Install Jupyter Notebook and dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir notebook jupyterlab
@@ -23,7 +26,7 @@ RUN chown -R jovyan:jovyan /home/jovyan
 # Switch to non-root user
 USER jovyan
 
-# Set Jupyter server options
+# Set Jupyter server options (now the directory exists)
 RUN echo "c.NotebookApp.allow_root = False" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 # Expose port for Jupyter server

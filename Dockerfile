@@ -12,7 +12,7 @@ RUN pip3 install jupyterlab
 
 
 # Expose port for Jupyter server
-EXPOSE 8080
+EXPOSE 8888
 
 # Start the Jupyter server
-CMD ["jupyter", "lab","ip=0.0.0.0","--port=8080","--no-browser","--allow-root","--NotebookApp.token=''"]
+CMD ["jupyter", "lab","--allow-root"]

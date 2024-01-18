@@ -7,9 +7,6 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /app
 
-# Create the .jupyter directory as root (before switching users)
-RUN mkdir /home/jovyan/.jupyter
-
 # Install Jupyter Notebook and dependencies
 RUN pip install --upgrade pip
 RUN pip install jupyterlab

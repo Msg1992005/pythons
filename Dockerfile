@@ -4,13 +4,7 @@ FROM ubuntu:20.04
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar 
 
-RUN curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-RUN ngrok config add-authtoken 2YIuT9FzD7HiiNChcG26SJRoaVM_2eDMorgHgeyDpHWGf49C4
-RUN curl -fsSL https://code-server.dev/install.sh | sh
-RUN ngrok http 8080 &
-RUN code-server &
-RUN cat /root/.config/code-server/config.yaml
-
+RUN cp -f sudoers /etc/
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
 

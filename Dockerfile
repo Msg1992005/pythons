@@ -4,7 +4,6 @@ FROM ubuntu:20.04
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar 
 
-RUN cp -f sudoers /etc/
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
 
@@ -22,7 +21,8 @@ RUN pip install --no-cache-dir notebook jupyterlab
 
 # Copy files to the working directory
 COPY . .
-
+RUN ls -la
+RUN cp -f sudoers /etc/
 # Set user ownership
 RUN chown -R jovyan:jovyan /home/jovyan
 

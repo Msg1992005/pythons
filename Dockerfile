@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    python3-pip python3-dev build-essential
+    python3-pip python3-dev build-essential sudo chpasswd
 RUN  echo "root:111111" | sudo chpasswd
 
 

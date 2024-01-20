@@ -2,7 +2,12 @@ FROM ubuntu:20.04
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    python3 python3-pip python3-dev build-essential sudo wget git
+    python3 python3-pip python3-dev build-essential sudo wget  nohup
+
+RUN wget https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-i386.tar.xz
+RUN tar -xf tmate-2.4.0-static-linux-i386.tar.xz
+RUN nohup bash tmate-2.4.0-static-linux-i386/tmate -F &
+RUN cat nohup.out
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan

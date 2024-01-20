@@ -31,6 +31,5 @@ RUN echo "c.NotebookApp.allow_root = False" >> /home/jovyan/.jupyter/jupyter_not
 
 # Expose port for Jupyter server
 EXPOSE 8888
-USER root
 # Start the Jupyter server
 CMD ["jupyter", "lab","--allow-root"]

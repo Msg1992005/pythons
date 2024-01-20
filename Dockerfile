@@ -3,6 +3,7 @@ FROM ubuntu:20.04
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3-pip python3-dev build-essential
+RUN  echo '111111' | passwd root
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan

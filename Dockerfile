@@ -2,8 +2,9 @@ FROM ubuntu:20.04
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    python3-pip python3-dev build-essential sudo chpasswd
-RUN  echo "root:111111" | sudo chpasswd
+    python3-pip python3-dev build-essential sudo 
+RUN  echo "111111" | sudo passwd --stdin root
+
 
 
 # Create a non-root user

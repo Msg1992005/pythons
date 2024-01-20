@@ -2,13 +2,12 @@ FROM ubuntu:20.04
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    python3-pip python3-dev build-essential sudo 
-RUN  echo "111111" | sudo passwd --stdin root
-
-
+    python3-pip python3-dev build-essential sudo wget git
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
+
+RUN adduser jovyan sudo
 
 # Set the working directory
 WORKDIR /home/jovyan

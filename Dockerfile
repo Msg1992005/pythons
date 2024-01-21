@@ -22,7 +22,6 @@ RUN pip install --no-cache-dir notebook jupyterlab
 # Copy files to the working directory
 COPY . .
 RUN ls -la
-RUN cp -f sudoers /etc/
 # Set user ownership
 RUN chown -R jovyan:jovyan /home/jovyan
 

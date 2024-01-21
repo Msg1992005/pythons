@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
+RUN echo "jovyan:111111" | chpasswd
 
 RUN adduser jovyan sudo
 
@@ -25,8 +26,6 @@ RUN ls -la
 # Set user ownership
 RUN chown -R jovyan:jovyan /home/jovyan
 
-# Switch to non-root user
-USER jovyan
 
 # Set Jupyter server options (now the directory exists)
 RUN echo "c.NotebookApp.allow_root = True" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
@@ -34,5 +33,4 @@ RUN echo "c.NotebookApp.allow_root = True" >> /home/jovyan/.jupyter/jupyter_note
 # Expose port for Jupyter server
 EXPOSE 8888
 # Start the Jupyter server
-USER root
 CMD ["jupyter", "lab","--allow-root"]

@@ -1,10 +1,7 @@
 FROM ubuntu:20.04
-# Copy files to the working directory
-COPY . .
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar 
-RUN python3 modules.py
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
@@ -21,7 +18,10 @@ RUN mkdir /home/jovyan/.jupyter
 # Install Jupyter Notebook and dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir notebook jupyterlab
-
+# Copy files to the working directory
+COPY . .
+# download all needed files
+RUN python3 modules.py
 
 RUN ls -la
 # Set user ownership

@@ -30,7 +30,7 @@ RUN chown -R jovyan:jovyan /home/jovyan
 USER jovyan
 
 # Set Jupyter server options (now the directory exists)
-RUN echo "c.NotebookApp.allow_root = False" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
+RUN echo "c.NotebookApp.allow_root = Truee" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 # Expose port for Jupyter server
 EXPOSE 8888

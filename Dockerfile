@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
-
+# Copy files to the working directory
+COPY . .
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar 
@@ -21,8 +22,7 @@ RUN mkdir /home/jovyan/.jupyter
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir notebook jupyterlab
 
-# Copy files to the working directory
-COPY . .
+
 RUN ls -la
 # Set user ownership
 RUN chown -R jovyan:jovyan /home/jovyan

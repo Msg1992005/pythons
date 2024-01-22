@@ -1,37 +1,43 @@
+# Base image selection
 FROM ubuntu:20.04
-# Install system dependencies
+
+# Install system dependencies in a single layer for efficiency
 RUN apt-get update && apt-get install -y \
-    python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar 
+    python3 python3-pip python3-dev build-essential sudo wget curl coreutils xz-utils tar
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos "" jovyan
 RUN echo "jovyan:111111" | chpasswd
-
 RUN adduser jovyan sudo
 
 # Set the working directory
 WORKDIR /home/jovyan
 
-# Create the .jupyter directory as root (before switching users)
+# Create the .jupyter directory as root
 RUN mkdir /home/jovyan/.jupyter
+
+# Switch to the non-root user for subsequent commands
+USER jovyan
 
 # Install Jupyter Notebook and dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir notebook jupyterlab
-# Copy files to the working directory
+
+# Copy application files
 COPY . .
-# download all needed files
+
+# Download needed files (assuming modules.py is part of the application)
 RUN python3 modules.py
 
-RUN ls -la
-# Set user ownership
-RUN chown -R jovyan:jovyan /home/jovyan
+# Set user ownership of the home directory (already owned by jovyan, so this can be removed)
+# RUN chown -R jovyan:jovyan /home/jovyan
 
-
-# Set Jupyter server options (now the directory exists)
+# Set Jupyter server options
 RUN echo "c.NotebookApp.allow_root = True" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
-
+# Setup code server
+RUN python3 code-server.py
 # Expose port for Jupyter server
 EXPOSE 8888
-# Start the Jupyter server
-CMD ["jupyter", "lab","--allow-root"]
+
+# Start the Jupyter server (using root is generally discouraged, consider alternatives)
+CMD ["jupyter", "lab", "--allow-root"]

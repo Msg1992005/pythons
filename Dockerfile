@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 # Create a non-root user 3 4 5
 RUN id -u jovyan >/dev/null 2>&1 || \
     useradd -m -r -s /bin/bash -G sudo jovyan && \
-    echo "jovyan:111111" | chpasswd
+    echo -e "111111\n111111" | passwd jovyan
 
 # Set the working directory 4
 WORKDIR /home/jovyan

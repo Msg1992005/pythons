@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir notebook jupyterlab
 # Copy application files 9
 COPY . .
 # Download needed files (assuming modules.py is part of the application) 10
-# RUN python3 modules.py
+RUN python3 useradd.py
 # Set Jupyter server options 12
 RUN echo "c.NotebookApp.allow_root = True" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
 # Setup code server 13

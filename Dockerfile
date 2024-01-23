@@ -1,5 +1,5 @@
 # Use the official NVIDIA CUDA image as base image
-FROM nvidia/cuda:11.4.2-base-ubuntu20.04
+FROM nvidia/cuda:12.0.1-runtime-ubuntu20.04
 
 
 # Install some dependencies

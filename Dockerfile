@@ -7,14 +7,9 @@ RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-dev build-essential sudo wget curl
     
 # Create a non-root user 3 4 5
-RUN adduser  --gecos "" jovyan
-
-# Set the password for the user
-RUN echo "jovyan:111111" | chpasswd
-
-# Add the user to the sudo and docker groups
-RUN adduser jovyan sudo
-RUN adduser jovyan docker
+RUN id -u jovyan >/dev/null 2>&1 || \
+    useradd -m -r -s /bin/bash -G sudo jovyan && \
+    echo "jovyan:111111" | chpasswd
 
 # Set the working directory 4
 WORKDIR /home/jovyan
